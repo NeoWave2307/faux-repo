@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CurricuLab AI - Intelligent Curriculum Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a472a;
+            --primary-light: #2d6a45;
+            --accent: #ff6b35;
+            --accent-light: #ff8556;
+            --bg: #fafaf8;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --border: #e0e0dc;
+            --shadow: rgba(26, 71, 42, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            letter-spacing: -1px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .problem-statement {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .problem-statement h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .problem-statement p {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .feature-pill {
+            background: rgba(255, 107, 53, 0.9);
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            color: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-pill:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-section {
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .cta-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .role-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .role-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 1.5rem 3rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .role-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transition: left 0.3s ease;
+            z-index: 0;
+        }
+
+        .role-btn:hover::before {
+            left: 0;
+        }
+
+        .role-btn span {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .role-btn:hover span {
+            color: white;
+        }
+
+        .role-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Selection Screens */
+        .selection-screen {
+            display: none;
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            background: var(--bg);
+        }
+
+        .selection-screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+        }
+
+        .branch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .branch-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .branch-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .branch-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .branch-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px var(--shadow);
+        }
+
+        .branch-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .branch-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .specializations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .spec-tag {
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--accent);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            background: var(--bg);
+        }
+
+        .dashboard.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+        }
+
+        .dashboard-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .user-info h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .user-info p {
+            opacity: 0.9;
+        }
+
+        .tools-grid {
+            padding: 3rem 2rem;
+        }
+
+        .tools-grid .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            opacity: 0;
+            border-radius: 0 0 0 100%;
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover::after {
+            opacity: 0.1;
+            width: 120px;
+            height: 120px;
+        }
+
+        .tool-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px var(--shadow);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .upload-area {
+            margin-top: 1rem;
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent);
+            background: rgba(255, 107, 53, 0.05);
+        }
+
+        .upload-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .upload-btn:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .role-buttons {
+                flex-direction: column;
+            }
+
+            .branch-grid,
+            .tools-grid .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div id="hero" class="hero">
+        <div class="hero-content">
+            <h1 class="logo">CurricuLab AI</h1>
+            <p class="tagline">Intelligent Curriculum Design Powered by Generative AI</p>
+            
+            <div class="problem-statement">
+                <h2>Revolutionizing Academic Program Development</h2>
+                <p>This Generative AI system automates curriculum design by generating structured courses, topic plans, and learning outcomes based on educational requirements. It supports educators in building industry-aligned academic programs efficiently.</p>
+            </div>
+
+            <div class="features">
+                <div class="feature-pill">Course Structure Generation</div>
+                <div class="feature-pill">Topic Recommendations</div>
+                <div class="feature-pill">Curriculum Planning</div>
+                <div class="feature-pill">Learning Outcome Mapping</div>
+                <div class="feature-pill">Academic Optimization</div>
+            </div>
+
+            <div class="cta-section">
+                <h2 class="cta-title">Who are you?</h2>
+                <div class="role-buttons">
+                    <button class="role-btn" onclick="selectRole('student')">
+                        <span>I'm a Student</span>
+                    </button>
+                    <button class="role-btn" onclick="selectRole('professor')">
+                        <span>I'm a Professor</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Branch Selection -->
+    <div id="student-selection" class="selection-screen">
+        <div class="container">
+            <button class="back-btn" onclick="goBack()">← Back to Home</button>
+            
+            <h2 class="section-title">Select Your Engineering Branch</h2>
+            <p class="section-subtitle">Choose your field of study to get personalized curriculum insights and career guidance</p>
+
+            <div class="branch-grid">
+                <div class="branch-card" onclick="selectBranch('CSE')">
+                    <h3>Computer Science & Engineering</h3>
+                    <p>Core computer science with emerging specializations</p>
+                    <div class="specializations">
+                        <span class="spec-tag">AI/ML</span>
+                        <span class="spec-tag">Data Science</span>
+                        <span class="spec-tag">Core CS</span>
+                    </div>
+                </div>
+
+                <div class="branch-card" onclick="selectBranch('ECE')">
+                    <h3>Electronics & Communication Engineering</h3>
+                    <p>Electronics, communication systems, and embedded technologies</p>
+                    <div class="specializations">
+                        <span class="spec-tag">VLSI</span>
+                        <span class="spec-tag">IoT</span>
+                        <span class="spec-tag">Embedded Systems</span>
+                    </div>
+                </div>
+
+                <div class="branch-card" onclick="selectBranch('ME')">
+                    <h3>Mechanical Engineering</h3>
+                    <p>Manufacturing, design, and thermal systems</p>
+                    <div class="specializations">
+                        <span class="spec-tag">CAD/CAM</span>
+                        <span class="spec-tag">Robotics</span>
+                        <span class="spec-tag">Thermal</span>
+                    </div>
+                </div>
+
+                <div class="branch-card" onclick="selectBranch('CE')">
+                    <h3>Civil Engineering</h3>
+                    <p>Infrastructure, construction, and environmental engineering</p>
+                    <div class="specializations">
+                        <span class="spec-tag">Structural</span>
+                        <span class="spec-tag">Environmental</span>
+                        <span class="spec-tag">Transportation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Professor Dashboard -->
+    <div id="professor-dashboard" class="dashboard">
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="user-info">
+                    <h2>Professor Dashboard</h2>
+                    <p>Design and optimize academic curricula with AI-powered insights</p>
+                </div>
+                <button class="back-btn" onclick="goBack()" style="border-color: white; color: white;">← Back</button>
+            </div>
+        </div>
+
+        <div class="tools-grid">
+            <div class="container">
+                <div class="tool-card">
+                    <div class="tool-icon">📚</div>
+                    <h3>Course Structure Generator</h3>
+                    <p>Automatically generate comprehensive course structures with topics, subtopics, and learning objectives aligned with industry standards.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🎯</div>
+                    <h3>Learning Outcome Mapping</h3>
+                    <p>Map course content to specific learning outcomes and competency frameworks. Ensure alignment with accreditation requirements.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔄</div>
+                    <h3>Curriculum Optimization</h3>
+                    <p>Analyze and optimize existing curricula for better student outcomes, industry relevance, and pedagogical effectiveness.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💼</div>
+                    <h3>Industry Alignment Analysis</h3>
+                    <p>Compare your curriculum with current industry demands and get recommendations for updates and improvements.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <h3>Topic Recommendations</h3>
+                    <p>Receive AI-powered suggestions for emerging topics and skills that should be incorporated into your courses.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔗</div>
+                    <h3>Prerequisite Analysis</h3>
+                    <p>Automatically identify and structure course prerequisites and dependencies for optimal learning pathways.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="dashboard">
+        <div class="dashboard-header">
+            <div class="container">
+                <div class="user-info">
+                    <h2>Student Dashboard</h2>
+                    <p id="student-branch-info">Your personalized career and learning hub</p>
+                </div>
+                <button class="back-btn" onclick="goBack()" style="border-color: white; color: white;">← Back</button>
+            </div>
+        </div>
+
+        <div class="tools-grid">
+            <div class="container">
+                <div class="tool-card">
+                    <div class="tool-icon">📄</div>
+                    <h3>Skill Gap Analysis</h3>
+                    <p>Upload your resume or job description to identify skill gaps and get personalized learning recommendations.</p>
+                    <div class="upload-area">
+                        <input type="file" id="resume-upload" accept=".pdf">
+                        <label for="resume-upload" class="upload-btn">Upload Resume/JD (PDF)</label>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💼</div>
+                    <h3>Job Opportunities</h3>
+                    <p>Discover relevant job opportunities based on your branch and skill set. Get matched with positions that align with your expertise.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🎓</div>
+                    <h3>Course Prerequisites</h3>
+                    <p>Explore prerequisites for your chosen career path. Understand what skills and knowledge you need to achieve your goals.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💡</div>
+                    <h3>Project Ideas</h3>
+                    <p>Get industry-relevant project ideas tailored to your branch. Build a portfolio that stands out to employers.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🛠️</div>
+                    <h3>Industry Tools & Tech</h3>
+                    <p>Stay updated with the latest tools, technologies, and frameworks relevant to your engineering domain.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📈</div>
+                    <h3>Career Path Planner</h3>
+                    <p>Map out your career trajectory with AI-powered insights on skills, certifications, and milestones for your target roles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRole = null;
+        let currentBranch = null;
+
+        function selectRole(role) {
+            currentRole = role;
+            document.getElementById('hero').style.display = 'none';
+            
+            if (role === 'student') {
+                document.getElementById('student-selection').classList.add('active');
+            } else {
+                document.getElementById('professor-dashboard').classList.add('active');
+            }
+        }
+
+        function selectBranch(branch) {
+            currentBranch = branch;
+            document.getElementById('student-selection').classList.remove('active');
+            document.getElementById('student-dashboard').classList.add('active');
+            
+            const branchNames = {
+                'CSE': 'Computer Science & Engineering',
+                'ECE': 'Electronics & Communication Engineering',
+                'ME': 'Mechanical Engineering',
+                'CE': 'Civil Engineering'
+            };
+            
+            document.getElementById('student-branch-info').textContent = 
+                `${branchNames[branch]} - Your personalized career and learning hub`;
+        }
+
+        function goBack() {
+            if (currentRole === 'student' && document.getElementById('student-dashboard').classList.contains('active')) {
+                document.getElementById('student-dashboard').classList.remove('active');
+                document.getElementById('student-selection').classList.add('active');
+            } else {
+                document.getElementById('student-selection').classList.remove('active');
+                document.getElementById('professor-dashboard').classList.remove('active');
+                document.getElementById('hero').style.display = 'flex';
+                currentRole = null;
+                currentBranch = null;
+            }
+        }
+
+        // File upload handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('resume-upload');
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    if (e.target.files.length > 0) {
+                        alert(`File "${e.target.files[0].name}" uploaded successfully! Analysis will begin shortly.`);
+                        // Here you would typically send the file to your backend
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
