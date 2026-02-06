@@ -13,12 +13,19 @@ Generate professional, comprehensive educational curricula for any subject using
 ## ✨ Features
 
 - 🤖 **RAG-Powered Generation**: Uses similar curriculum examples for context-aware generation
-- 💰 **100% Free Tier**: Google Gemini (60 req/min, 1500/day) + local ChromaDB
+- 💰 **100% Free Tier**: Google Gemini (15 req/min, 1500/day) + local ChromaDB
 - 🗄️ **Local Vector Store**: ChromaDB for persistent curriculum knowledge base
 - 📄 **Professional PDFs**: University-grade curriculum documents with ReportLab
 - ✅ **Validation**: Automatic curriculum quality checks
 - 🎨 **Beautiful UI**: Modern Streamlit interface with no frontend code
 - 🔧 **Structured Output**: Pydantic models ensure data quality
+
+## 📖 Documentation
+
+- **[USER_GUIDE.md](USER_GUIDE.md)** - Complete usage guide: RAG system, adding documents, customization
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick 3-step setup guide
+- **[ERROR_RESOLUTION.md](ERROR_RESOLUTION.md)** - API errors and solutions
+- **[.env.example](.env.example)** - Configuration template
 
 ## 🏗️ Architecture
 
@@ -47,6 +54,15 @@ User Input → RAG Retrieval (ChromaDB) → Context + Prompt → Gemini LLM → 
 # Clone the repository
 cd faux-repo
 
+# Create and activate virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Windows:
+.\venv\Scripts\Activate.ps1
+# On macOS/Linux:
+# source venv/bin/activate
+
 # Install dependencies
 pip install -r requirements.txt
 ```
@@ -56,6 +72,10 @@ pip install -r requirements.txt
 Create a `.env` file in the project root:
 
 ```bash
+# Copy the example file
+cp .env.example .env
+
+# Or create manually with:
 GOOGLE_API_KEY=your_gemini_api_key_here
 ```
 
@@ -71,7 +91,15 @@ python populate_knowledge_base.py
 
 This will load example curricula (ML, AI, Web Dev) into the vector database.
 
-### 5. Run the Application
+### 5. Verify API (Optional)
+
+Check if your API key has available quota:
+
+```bash
+python check_quota.py
+```
+
+### 6. Run the Application
 
 ```bash
 streamlit run app.py

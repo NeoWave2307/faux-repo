@@ -13,6 +13,22 @@ A complete **RAG-powered curriculum generator** that creates professional educat
 
 ## ⚡ 3-Step Setup
 
+### Step 0: Setup Virtual Environment (Recommended)
+
+```bash
+# Create virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+# On Windows:
+.\venv\Scripts\Activate.ps1
+# On macOS/Linux:
+# source venv/bin/activate
+
+# Install requirements
+pip install -r requirements.txt
+```
+
 ### Step 1: Get Google API Key (Free)
 
 1. Go to: https://makersuite.google.com/app/apikey
@@ -24,6 +40,10 @@ A complete **RAG-powered curriculum generator** that creates professional educat
 Create a `.env` file in the project root:
 
 ```bash
+# Copy the example file (recommended)
+cp .env.example .env
+
+# Then edit .env and add your API key
 GOOGLE_API_KEY=paste_your_key_here
 ```
 
