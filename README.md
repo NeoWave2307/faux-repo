@@ -43,12 +43,31 @@ User Input → RAG Retrieval (ChromaDB) → Context + Prompt → Gemini LLM → 
 
 ## 🚀 Quick Start
 
-### 1. Prerequisites
+### One-Command Setup ⚡
+
+```bash
+python setup.py
+```
+
+This **single command** does everything:
+1. ✅ Creates virtual environment (`venv/`)
+2. ✅ Installs all dependencies
+3. ✅ Populates ChromaDB knowledge base
+4. ✅ Asks if you want to launch the app
+5. ✅ Runs Streamlit automatically
+
+**Then just add your Google API key** (see Configuration below).
+
+---
+
+### Manual Setup (Alternative)
+
+#### 1. Prerequisites
 
 - Python 3.8 or higher
 - Google API Key (free from [Google AI Studio](https://makersuite.google.com/app/apikey))
 
-### 2. Installation
+#### 2. Installation
 
 ```bash
 # Clone the repository
@@ -67,7 +86,7 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-### 3. Configuration
+#### 3. Configuration
 
 Create a `.env` file in the project root:
 
@@ -81,7 +100,7 @@ GOOGLE_API_KEY=your_gemini_api_key_here
 
 Get your free API key from: https://makersuite.google.com/app/apikey
 
-### 4. Initialize Knowledge Base
+#### 4. Initialize Knowledge Base
 
 Populate ChromaDB with curriculum examples:
 
@@ -89,9 +108,9 @@ Populate ChromaDB with curriculum examples:
 python populate_knowledge_base.py
 ```
 
-This will load example curricula (ML, AI, Web Dev) into the vector database.
+This automatically scans **all folders** under `data/knowledge_base/` for `.md` files.
 
-### 5. Verify API (Optional)
+#### 5. Verify API (Optional)
 
 Check if your API key has available quota:
 

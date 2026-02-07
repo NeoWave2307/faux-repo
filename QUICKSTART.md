@@ -11,9 +11,25 @@ A complete **RAG-powered curriculum generator** that creates professional educat
 
 ---
 
-## ⚡ 3-Step Setup
+## ⚡ Super Quick Setup - One Command!
 
-### Step 0: Setup Virtual Environment (Recommended)
+### Automated Setup (Recommended)
+
+```bash
+python setup.py
+```
+
+That's it! This single command:
+- ✅ Creates virtual environment
+- ✅ Installs all dependencies
+- ✅ Populates the knowledge base
+- ✅ Launches the Streamlit app
+
+---
+
+## 🔧 Manual Setup (Alternative)
+
+### Step 0: Setup Virtual Environment
 
 ```bash
 # Create virtual environment
@@ -49,12 +65,20 @@ GOOGLE_API_KEY=paste_your_key_here
 
 ### Step 3: Initialize Knowledge Base
 
-The knowledge base has already been populated with 4 curriculum examples!
-
-If you need to re-initialize:
 ```bash
 python populate_knowledge_base.py
 ```
+
+This automatically scans **all folders** under `data/knowledge_base/` and loads all `.md` files.
+
+Current curriculum files:
+- CSE Core Curriculum
+- Civil Engineering (CE) AR22
+- Electronics & Communication (ECE) AR22
+- Mechanical Engineering (ME) AR22
+- ML/AI programs (BTech AI, Masters ML)
+- Web Development bootcamp
+- Templates
 
 ---
 

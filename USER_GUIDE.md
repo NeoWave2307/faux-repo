@@ -82,22 +82,36 @@ User: "Create a BTech Machine Learning curriculum"
 ### Current Knowledge Base Structure
 ```
 data/knowledge_base/
+├── cse_courses/
+│   └── cse_core_curriculum.md       # CSE Core Curriculum
+├── ce_courses/
+│   └── ce_ar22_curriculum.md        # Civil Engineering AR22
+├── ece_courses/
+│   └── ece_ar22_curriculum.md       # Electronics & Comm AR22
+├── me_courses/
+│   └── me_ar22_curriculum.md        # Mechanical Engineering AR22
+├── aiml_courses/                    # (Add AIML courses here)
 ├── ml_curricula/
-│   ├── btech_ai.md          # BTech Artificial Intelligence (8 semesters)
-│   ├── masters_ml.md        # Masters Machine Learning (4 semesters)
+│   ├── btech_ai.md                  # BTech AI (8 semesters)
+│   └── masters_ml.md                # Masters ML (4 semesters)
 ├── web_dev_curricula/
-│   ├── fullstack_bootcamp.md # Full-Stack Bootcamp (6 months)
+│   └── fullstack_bootcamp.md        # Full-Stack Bootcamp
 └── templates/
-    └── curriculum_template.md # Generic template
+    └── curriculum_template.md       # Generic template
 ```
+
+**You can create ANY folder structure** - the populate script scans recursively!
 
 ### How to Add New Curriculum Documents
 
 #### Option 1: Add New Markdown Files (Recommended)
 
-**Step 1:** Create a new `.md` file in appropriate folder
+**Step 1:** Create a new `.md` file in any folder (or create a new folder!)
 ```bash
-# For ML/AI curricula
+# Create a new department folder
+mkdir data/knowledge_base/biotech_courses
+
+# Or use existing folders like:
 data/knowledge_base/ml_curricula/your_curriculum.md
 
 # For Web Development
