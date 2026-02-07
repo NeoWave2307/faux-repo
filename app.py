@@ -20,9 +20,19 @@ apply_theme()
 if 'role' not in st.session_state:
     st.session_state['role'] = None
 
-# Header
-st.markdown('<h1 class="app-title">CurricuLab AI</h1>', unsafe_allow_html=True)
-st.markdown('<p class="app-subtitle">Intelligent Curriculum Design Platform</p>', unsafe_allow_html=True)
+# Header with Logo
+header_col1, header_col2 = st.columns([3, 1])
+
+with header_col1:
+    st.markdown('<h1 class="app-title">CurricuLab AI</h1>', unsafe_allow_html=True)
+    st.markdown('<p class="app-subtitle">Intelligent Curriculum Design Platform</p>', unsafe_allow_html=True)
+
+with header_col2:
+    try:
+        st.image("src/assets/logo.png", use_container_width=True)
+    except Exception as e:
+        # Fallback if image not found
+        pass
 
 # Role Selection Section
 st.markdown('<p class="role-label">Choose Workspace</p>', unsafe_allow_html=True)
